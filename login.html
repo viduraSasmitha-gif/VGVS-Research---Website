@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - VGVS Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    colors: { primary: '#3b82f6', secondary: '#8b5cf6', darker: '#020617' }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: #020617;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+        }
+    </style>
+</head>
+
+<body class="text-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Back Button -->
+    <a href="index.html"
+        class="absolute top-6 left-6 text-gray-400 hover:text-white transition-colors flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+            </path>
+        </svg>
+        Back to Home
+    </a>
+
+    <div class="glass-panel w-full max-w-md p-8 rounded-2xl shadow-2xl relative overflow-hidden">
+        <!-- Glow effects -->
+        <div
+            class="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl -z-10 translate-x-10 -translate-y-10">
+        </div>
+
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                Welcome Back</h2>
+            <p class="text-gray-400 text-sm mt-2">Access your research portal</p>
+        </div>
+
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label class="block text-gray-400 text-sm font-medium mb-2">Username</label>
+                <input type="text" id="username" required
+                    class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors placeholder-gray-600"
+                    placeholder="Enter your username">
+            </div>
+
+            <div>
+                <label class="block text-gray-400 text-sm font-medium mb-2">Password</label>
+                <input type="password" id="password" required
+                    class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors placeholder-gray-600"
+                    placeholder="••••••••">
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+                <label class="flex items-center text-gray-400 cursor-pointer">
+                    <input type="checkbox" class="mr-2 rounded border-gray-700 bg-slate-900 text-blue-500 focus:ring-0">
+                    Remember me
+                </label>
+                <a href="#" class="text-blue-400 hover:text-blue-300">Forgot password?</a>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-blue-500/25 active:scale-95">
+                Sign In
+            </button>
+        </form>
+
+        <div class="mt-6 text-center text-sm text-gray-400">
+            Don't have an account?
+            <a href="register.html" class="text-blue-400 hover:text-blue-300 font-medium">Register now</a>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

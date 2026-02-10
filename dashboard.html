@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - VGVS Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    colors: { primary: '#3b82f6', secondary: '#8b5cf6', darker: '#020617' }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: #020617;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+        }
+    </style>
+</head>
+
+<body class="text-gray-100 min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col fixed h-full z-10 glass-panel">
+        <div class="p-6 border-b border-slate-800">
+            <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                VGVS Admin</h1>
+        </div>
+        <nav class="flex-grow p-4 space-y-2">
+            <a href="#" class="block px-4 py-3 rounded-xl bg-blue-600/20 text-blue-400 font-medium">
+                <i class="fas fa-upload mr-3"></i> Upload Research
+            </a>
+            <a href="research.html"
+                class="block px-4 py-3 rounded-xl text-gray-400 hover:bg-slate-800 hover:text-white transition-colors">
+                <i class="fas fa-file-alt mr-3"></i> View All Papers
+            </a>
+            <a href="index.html"
+                class="block px-4 py-3 rounded-xl text-gray-400 hover:bg-slate-800 hover:text-white transition-colors">
+                <i class="fas fa-home mr-3"></i> Main Site
+            </a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+            <div class="flex items-center space-x-3 mb-4">
+                <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold">
+                    A</div>
+                <div>
+                    <div class="text-sm font-medium" id="admin-name">Admin</div>
+                    <div class="text-xs text-green-400">Online</div>
+                </div>
+            </div>
+            <button onclick="logout()"
+                class="w-full py-2 border border-slate-700 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-slate-800 transition-colors">
+                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 flex-grow p-8">
+        <header class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold">Research Management</h2>
+            <div class="flex items-center space-x-4">
+                <span id="clock" class="text-gray-400 font-mono">00:00:00</span>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="text-gray-400 text-sm uppercase mb-1">Total Papers</div>
+                <div class="text-3xl font-bold text-white count-papers">0</div>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="text-gray-400 text-sm uppercase mb-1">Total Views</div>
+                <div class="text-3xl font-bold text-white count-views">0</div>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="text-gray-400 text-sm uppercase mb-1">System Status</div>
+                <div class="text-3xl font-bold text-green-400">Active</div>
+            </div>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="glass-panel rounded-2xl p-8 mb-8">
+            <h3 class="text-xl font-bold mb-6 flex items-center">
+                <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center mr-3">
+                    <i class="fas fa-plus"></i>
+                </span>
+                Add New Research
+            </h3>
+
+            <form id="upload-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-400 text-sm font-medium mb-2">Title</label>
+                        <input type="text" id="paper-title" required
+                            class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                            placeholder="Research Title">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm font-medium mb-2">Category</label>
+                        <select id="paper-category"
+                            class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
+                            <option>Biology</option>
+                            <option>Computer Science</option>
+                            <option>Physics</option>
+                            <option>Chemistry</option>
+                            <option>Mathematics</option>
+                            <option>Social Science</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-2">Abstract</label>
+                    <textarea id="paper-abstract" rows="4" required
+                        class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                        placeholder="Brief summary of the research..."></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-2">Upload PDF</label>
+                    <div class="relative border-2 border-dashed border-slate-700 rounded-xl p-8 text-center hover:border-blue-500 transition-colors cursor-pointer"
+                        id="drop-zone">
+                        <input type="file" id="paper-file" accept=".pdf"
+                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-500 mb-2"></i>
+                        <p class="text-gray-400">Drag & drop your PDF here or click to browse</p>
+                        <p class="text-xs text-gray-600 mt-2">Max file size: 10MB</p>
+                        <p id="file-name" class="text-blue-400 mt-2 hidden font-medium"></p>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit"
+                        class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-blue-500/25">
+                        <i class="fas fa-paper-plane mr-2"></i> Publish Research
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Check Admin Access
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (!user || (user.role !== 'admin' && user.role !== 'uploader')) {
+            alert("Access Denied. Admins Only.");
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('admin-name').textContent = user.username;
+        }
+
+        // Handle File Selection UI
+        document.getElementById('paper-file').addEventListener('change', function (e) {
+            const fileName = e.target.files[0]?.name;
+            const nameDisplay = document.getElementById('file-name');
+            if (fileName) {
+                nameDisplay.textContent = "Selected: " + fileName;
+                nameDisplay.classList.remove('hidden');
+            }
+        });
+
+        // Handle Upload Mock
+        document.getElementById('upload-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('paper-title').value;
+            const category = document.getElementById('paper-category').value;
+            const abstract = document.getElementById('paper-abstract').value;
+            const fileInput = document.getElementById('paper-file');
+            const fileName = fileInput.files[0] ? fileInput.files[0].name : 'untitled.pdf';
+
+            const newPaper = {
+                id: Date.now(),
+                title,
+                category,
+                abstract,
+                fileName,
+                date: new Date().toISOString(),
+                author: user.username,
+                views: 0
+            };
+
+            const papers = JSON.parse(localStorage.getItem('research_papers') || '[]');
+            papers.unshift(newPaper);
+            localStorage.setItem('research_papers', JSON.stringify(papers));
+
+            alert("Research Paper Uploaded Successfully!");
+            document.getElementById('upload-form').reset();
+            document.getElementById('file-name').classList.add('hidden');
+
+            // Update stats
+            initStats(); // re-run stats from main.js logic if possible, or reload
+            location.reload();
+        });
+
+        // Update stats on load
+        const papers = JSON.parse(localStorage.getItem('research_papers') || '[]');
+        document.querySelector('.count-papers').textContent = papers.length;
+        document.querySelector('.count-views').textContent = localStorage.getItem('total_views') || 0;
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Paper - VGVS Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    colors: { primary: '#3b82f6', secondary: '#8b5cf6', darker: '#020617' }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: #020617;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+        }
+
+        .pdf-preview {
+            background-color: #f3f4f6;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body class="bg-darker text-gray-100 font-sans min-h-screen">
+
+    <!-- Navigation (Back) -->
+    <nav class="fixed w-full z-50 bg-slate-900/50 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="research.html" class="flex items-center text-gray-300 hover:text-white transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back to Library
+                </a>
+                <div class="text-sm text-gray-500 font-medium">
+                    Research ID: <span id="paper-id" class="text-blue-400">#</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <div id="loading" class="text-center py-20">
+            <div class="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin">
+            </div>
+        </div>
+
+        <div id="content" class="hidden animate-fade-in-up">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span id="paper-category"
+                        class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-semibold uppercase tracking-wider border border-blue-500/20">
+                        Category
+                    </span>
+                    <span id="paper-date"
+                        class="px-3 py-1 bg-white/5 text-gray-400 rounded-full text-xs font-medium border border-white/10">
+                        Date
+                    </span>
+                </div>
+                <h1 id="paper-title"
+                    class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-6 leading-tight">
+                    Title
+                </h1>
+                <div class="flex items-center space-x-4 border-b border-white/10 pb-8">
+                    <div
+                        class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <div class="text-sm text-gray-400">Published by</div>
+                        <div id="paper-author" class="text-white font-medium">Author Name</div>
+                    </div>
+                    <div class="ml-auto flex items-center text-gray-500 text-sm">
+                        <i class="fas fa-eye mr-2"></i> <span id="paper-views">0</span> Views
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Column -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Abstract -->
+                    <div class="glass-panel p-8 rounded-2xl">
+                        <h3 class="text-xl font-bold mb-4 flex items-center text-white">
+                            <i class="fas fa-align-left mr-3 text-blue-400"></i> Abstract
+                        </h3>
+                        <p id="paper-abstract" class="text-gray-300 leading-relaxed text-lg">
+                            Loading abstract...
+                        </p>
+                    </div>
+
+                    <!-- PDF Preview Mock -->
+                    <div class="glass-panel p-2 rounded-2xl overflow-hidden">
+                        <div class="pdf-preview rounded-xl flex-col bg-slate-800 border border-slate-700">
+                            <i class="fas fa-file-pdf text-6xl text-red-500 mb-4 opacity-75"></i>
+                            <p class="text-gray-400 font-medium">PDF Preview Not Available</p>
+                            <p class="text-sm text-gray-500 mt-2">Please download the file to view full content.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="space-y-6">
+                    <!-- Actions -->
+                    <div class="glass-panel p-6 rounded-2xl sticky top-32">
+                        <h3 class="text-lg font-bold mb-6 border-b border-white/10 pb-4">Actions</h3>
+
+                        <button onclick="downloadPaper()"
+                            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 mb-3 flex items-center justify-center">
+                            <i class="fas fa-download mr-2"></i> Download PDF
+                        </button>
+
+                        <button
+                            class="w-full bg-white/5 hover:bg-white/10 text-gray-300 font-medium py-3 px-4 rounded-xl transition-all border border-white/10 flex items-center justify-center">
+                            <i class="fas fa-share-alt mr-2"></i> Share Paper
+                        </button>
+
+                        <div class="mt-8 pt-6 border-t border-white/10">
+                            <div class="text-xs text-gray-500 uppercase tracking-widest mb-3">File Info</div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-400">Format:</span>
+                                <span class="text-white">PDF</span>
+                            </div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-400">Size:</span>
+                                <span class="text-white">2.4 MB</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <!-- Added filename display -->
+                                <span>File:</span>
+                                <span class="text-gray-400 truncate w-32 text-right" id="paper-filename">doc.pdf</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Auth Check
+        if (!localStorage.getItem('currentUser')) {
+            window.location.href = 'login.html';
+        }
+
+        // Get ID from URL
+        const params = new URLSearchParams(window.location.search);
+        const paperId = params.get('id');
+
+        // Fetch Paper
+        const papers = JSON.parse(localStorage.getItem('research_papers') || '[]');
+        const paper = papers.find(p => p.id == paperId);
+
+        if (paper) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('content').classList.remove('hidden');
+
+            document.getElementById('paper-id').textContent = paper.id;
+            document.getElementById('paper-title').textContent = paper.title;
+            document.getElementById('paper-category').textContent = paper.category;
+            document.getElementById('paper-abstract').textContent = paper.abstract;
+            document.getElementById('paper-author').textContent = paper.author;
+            document.getElementById('paper-date').textContent = new Date(paper.date).toLocaleDateString();
+            document.getElementById('paper-views').textContent = paper.views;
+            document.getElementById('paper-filename').textContent = paper.fileName || 'document.pdf';
+
+            // Increment views (Mock)
+            paper.views += 1;
+            localStorage.setItem('research_papers', JSON.stringify(papers));
+        } else {
+            // Not found
+            document.getElementById('loading').innerHTML = `
+                <div class="text-red-500 text-xl font-bold mb-4">Paper Not Found</div>
+                <a href="research.html" class="text-blue-400 hover:underline">Return to Library</a>
+            `;
+        }
+
+        function downloadPaper() {
+            // Mock Download
+            alert("Starting download for: " + (paper?.fileName || "Research_Paper.pdf"));
+        }
+    </script>
+</body>
+
+</html>
